@@ -5,6 +5,13 @@ Rails.application.routes.draw do
 
   resources :formations, only: %w[index show create update destroy]
   resources :categories, only: %w[index show create update destroy]
+  resources :rooms, only: %w[index show create destroy]
+  resources :sessions, only: %w[index show create update destroy]
+  resources :student_sessions, only: %w[index show create update destroy]
+  resources :formation_categories, only: %w[create destroy]
+
+
+
   resources :users, only: %w[show]
 
   devise_for :users,
@@ -15,7 +22,7 @@ Rails.application.routes.draw do
     registration: 'signup'
   },
   controllers: {
-    sessions: 'sessions',
+    sessions: 'sessions_devise',
     registrations: 'registrations'
   }
 end
