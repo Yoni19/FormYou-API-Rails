@@ -9,6 +9,7 @@
 require 'faker'
 User.destroy_all
 Formation.destroy_all
+Category.destroy_all
 
 1.times do 
   User.create(
@@ -57,3 +58,11 @@ end
   )
   puts "1 Formation created"
 end
+
+
+15.times do
+  Category.create(
+    name: Faker::ProgrammingLanguage.name
+  )
+end
+puts "Categories created"
