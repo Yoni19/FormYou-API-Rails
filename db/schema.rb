@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_181528) do
+ActiveRecord::Schema.define(version: 2020_11_30_201903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2020_11_30_181528) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "formation_categories", force: :cascade do |t|
+    t.bigint "formation_id"
+    t.bigint "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_formation_categories_on_category_id"
+    t.index ["formation_id"], name: "index_formation_categories_on_formation_id"
   end
 
   create_table "formations", force: :cascade do |t|
@@ -34,6 +43,33 @@ ActiveRecord::Schema.define(version: 2020_11_30_181528) do
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.integer "capacity"
+    t.date "date"
+    t.bigint "formation_id"
+    t.bigint "room_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["formation_id"], name: "index_sessions_on_formation_id"
+    t.index ["room_id"], name: "index_sessions_on_room_id"
+  end
+
+  create_table "student_sessions", force: :cascade do |t|
+    t.integer "grade"
+    t.bigint "user_id"
+    t.bigint "session_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["session_id"], name: "index_student_sessions_on_session_id"
+    t.index ["user_id"], name: "index_student_sessions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

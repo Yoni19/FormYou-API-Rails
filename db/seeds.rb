@@ -10,6 +10,8 @@ require 'faker'
 User.destroy_all
 Formation.destroy_all
 Category.destroy_all
+Room.destroy_all
+Session.destroy_all
 
 1.times do 
   User.create(
@@ -49,7 +51,6 @@ end
 end
 
 
-
 10.times do 
   Formation.create(
     title: Faker::JapaneseMedia::OnePiece.character,
@@ -66,3 +67,21 @@ end
   )
 end
 puts "Categories created"
+
+
+n=0
+10.times do 
+  n+=1
+  Room.create(
+    number: n 
+  )
+end
+
+20.times do 
+  Session.create(
+    capacity: 20,
+    date: Date.today + rand(1...20),
+    formation_id: rand(Formation.first.id...Formation.last.id),
+    room_id: rand(Room.first.id...Room.last.id)
+  )
+end 
