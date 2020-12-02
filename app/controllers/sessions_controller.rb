@@ -4,8 +4,13 @@ class SessionsController < ApplicationController
 
 
   def index
-    @sessions = Session.all
-    render json: @sessions
+    if params[:user_id] 
+      @sessions = User.find(params[:user_id]).sessions
+      render json: @sessions
+    else 
+      @sessions = Session.all
+      render json: @sessions
+    end 
   end
 
   def show
