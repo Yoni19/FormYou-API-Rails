@@ -7,7 +7,7 @@ class FormationCategoriesController < ApplicationController
     if is_admin
       @formation_category = FormationCategory.new(formation_category_params)
       if @formation_category.save
-        render json: @formation_category_category, status: :created, location: formation_categories_url(@formation_category)
+        render json: @formation_category, status: :created, location: formation_categories_url(@formation_category)
       else
         render json: @formation_category.errors, status: :unprocessable_entity
       end

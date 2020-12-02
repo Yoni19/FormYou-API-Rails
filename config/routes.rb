@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
 
 
-  resources :users, only: %w[show]
+  resources :users, only: %w[show index]
 
   devise_for :users,
   path: '',
