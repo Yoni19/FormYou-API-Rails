@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
   def create 
     if is_admin
       @session = Session.new(session_params)
+      @session.capacity = 20
       if @session.save
         render json: @session, status: :created, location: sessions_url(@session)
       else
