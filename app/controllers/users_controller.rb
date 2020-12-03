@@ -11,10 +11,24 @@ class UsersController < ApplicationController
     render_jsonapi_response(@user)
   end
 
+  def destroy
+    if is_admin 
+      @user.destroy
+    end 
+  end 
+
   private
 
   def find_user
     @user = User.find(params[:id])
   end
+
+  def is_admin
+    if current_user.status != "admin"
+       return false
+    else 
+      return true
+    end 
+  end 
 
 end
