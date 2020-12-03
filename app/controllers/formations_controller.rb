@@ -8,7 +8,7 @@ class FormationsController < ApplicationController
       @formations = Category.find(params[:category]).formations
       render json: @formations
     elsif params[:search]
-      @formations = Formation.all.select {|formation| formation.title.include?(params[:search])}
+      @formations = Formation.all.select {|formation| formation.title.downcase.include?(params[:search].downcase)}
       render json: @formations
     else 
       @formations = Formation.all
