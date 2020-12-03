@@ -51,10 +51,12 @@ class CategoriesController < ApplicationController
   end 
 
   def is_admin
-    if current_user.status != "admin"
-       return false
-    else 
-      return true
+    if current_user
+      if current_user.status != "admin"
+        return false
+      else 
+        return true
+      end 
     end 
   end 
 end

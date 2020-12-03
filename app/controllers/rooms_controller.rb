@@ -26,7 +26,11 @@ class RoomsController < ApplicationController
   end 
 
   def destroy
-    @room.destroy 
+    if is_admin
+      @room.destroy 
+    else 
+      render json: {error: "admin not connected"}, status: :unprocessable_entity
+    end 
   end
 
 
@@ -41,10 +45,12 @@ class RoomsController < ApplicationController
   end 
 
   def is_admin
-    if current_user.status != "admin"
-       return false
-    else 
-      return true
+    if current_user
+      if current_user.status != "admin"
+        return false
+      else 
+        return true
+      end 
     end 
   end 
 end

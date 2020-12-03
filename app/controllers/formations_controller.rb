@@ -44,7 +44,11 @@ class FormationsController < ApplicationController
   end 
 
   def destroy
-    @formation.destroy 
+    if is_admin
+      @formation.destroy 
+    else 
+      render json: {error: "admin not connected"}, status: :unprocessable_entity
+    end
   end
 
 
@@ -55,14 +59,17 @@ class FormationsController < ApplicationController
   end 
 
   def formation_params
-    params.require(:formation).permit(:title, :description).merge(user_id: current_user.id)
+    params.require(:formation).permit(:title, :description, :user_id)
   end 
 
   def is_admin
-    if current_user.status != "admin"
-       return false
-    else 
-      return true
+    if current_user
+      if current_user.status != "admin"
+        return false
+      else 
+        return true
+      end 
     end 
   end 
+
 end

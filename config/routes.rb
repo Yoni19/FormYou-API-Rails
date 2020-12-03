@@ -13,7 +13,6 @@ Rails.application.routes.draw do
 
 
   resources :users, only: %w[show index destroy]
-
   devise_for :users,
   path: '',
   path_names: {
@@ -25,4 +24,5 @@ Rails.application.routes.draw do
     sessions: 'sessions_devise',
     registrations: 'registrations'
   }
+
 end
